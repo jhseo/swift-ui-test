@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DepositView.swift
 //  swift-ui-test
 //
 //  Created by jhseo on 2020/01/30.
@@ -7,8 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
-struct ContentView: View {
+struct DepositView: View {
+    @ObservedObject var viewModel = DepositViewModel()
+
     var body: some View {
         VStack(spacing: 20.0) {
             walletInfo
@@ -25,7 +28,7 @@ struct ContentView: View {
     var walletInfo: some View {
         VStack(spacing: 8.0) {
             HStack(spacing: 0) {
-                Text("@user_id")
+                Text("@\(viewModel.walletInfo.userId)")
                     .font(.system(size: 24))
                     .fontWeight(.bold)
                     .foregroundColor(Color(red: 51/255, green: 51/255, blue: 51/255, opacity: 1.0))
@@ -33,7 +36,7 @@ struct ContentView: View {
                     .font(.system(size: 24))
                     .foregroundColor(Color(red: 51/255, green: 51/255, blue: 51/255, opacity: 1.0))
             }
-            Text("0x1B09f646fAE61556Da2C4590da28079F3Cc4542D")
+            Text(viewModel.walletInfo.publicAddress)
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 191/255, green: 191/255, blue: 199/255, opacity: 1.0))
         }
@@ -56,7 +59,7 @@ struct ContentView: View {
 
     var currentPxlText: some View {
         HStack {
-            Text("1,234,567 Klay")
+            Text("\(viewModel.walletInfo.tokenAmount) Klay")
                 .font(.system(size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 26/255, green: 146/255, blue: 255/255, opacity: 1.0))
@@ -107,8 +110,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct DepositView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        DepositView()
     }
 }
